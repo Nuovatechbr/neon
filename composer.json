@@ -1,0 +1,21 @@
+{
+    "name": "nuovatech/neon",
+    "authors": [
+        {
+            "name": "Eduardo Marinho",
+            "email": "nuovatech@outlook.com"
+        }
+    ],
+    "description": "Framework PHP",
+    "type": "library",
+    "license": "GPL-3.0-or-later",
+    "autoload": {
+        "psr-4": {
+            "Nuovatech\\Neon\\": "core/"
+        }
+    },
+    "require": {
+        "php": ">=7.4"
+    },
+    "version": "1.0.0"
+}
