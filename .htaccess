@@ -1,0 +1,11 @@
+# Liga o Rewrite
+
+RewriteEngine on
+
+# Regra de Rewrite tudo para o INDEX
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ ./index.php [QSA,NC]
+
+<Files ~ "^\.(htaccess|htpasswd|env)$">
+  deny from all
+</Files>

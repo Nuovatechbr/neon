@@ -4,7 +4,6 @@ namespace Nuovatech\Neon;
 
 use \Nuovatech\Neon\Http\Router;
 
-
 /**
  * Classe de gestão do Framework. Deve ser a primeira classe importada para o projeto
  * @author Eduardo Marinho
@@ -52,19 +51,34 @@ abstract class Neon
         // Diretório dos arquivos de rotas
         $directory = dir($dir .  "/app/Routes/");
 
+        // Quantidade de arquivos de rotas encontrados
+        $qtdRoutes = 0;
+
         // Percorre o diretório em busca dos mapas de rotas
         while ($file = $directory->read()) {
+
             if (stripos($file, 'php')) {
+
+                // Incrementa a quantidade de rotas encontradas
+                $qtdRoutes += 1;
+
                 // Importa o arquivo de rotas.
                 require_once($dir . "/app/Routes/$file");
             }
         }
 
-        // Executa a chamada da rotas
-        $obRouter->run()->sendResponse();
+        if ($qtdRoutes > 0) {
+            // Executa a chamada da rotas
+            $obRouter->run()->sendResponse();
 
-        // Limpa o conteúdo do BUFFER para evitar erros
-        ob_end_flush();
+            // Limpa o conteúdo do BUFFER para evitar erros
+            ob_end_flush();
+        } else {
+            echo Tools::dump([
+                "status" => 500,
+                "description" => "Não existem arquivos de rota definidos!"
+            ], true);
+        }
     }
 
     /**
@@ -77,17 +91,57 @@ abstract class Neon
         // Carrega as variáveis de ambiente
         self::environment($dir);
 
+        // Cria os diretórios do sistema, caso não existam
+        self::diretories($dir);
+
         // Inicia a variável de sessão para utilização futura
         if (session_start() != PHP_SESSION_ACTIVE) {
             session_start();
         }
 
-        // Carregamento dos controladores
-        // self::autoController($dir);
-
         // Realiza o carregamento das rotas
         self::route($dir);
+    }
 
-        print("Hello");
+    /**
+     * Método de criação dos diretórios para gerar a aplicação caso não existam
+     * @param string $dir diretório raíz da aplicação
+     */
+    private static function diretories(string $dir)
+    {
+
+        // Cria os diretórios de aplicação
+        if (!file_exists($dir . "/app")) {
+            mkdir("app");
+        }
+        if (!file_exists($dir . "/app/Controller")) {
+            mkdir("app/Controller");
+        }
+        if (!file_exists($dir . "/app/Interface")) {
+            mkdir("app/Interface");
+        }
+        if (!file_exists($dir . "/app/Model")) {
+            mkdir("app/Model");
+        }
+        if (!file_exists($dir . "/app/Routes")) {
+            mkdir("app/Routes");
+        }
+
+        // Cria os diretórios de visão
+        if (!file_exists($dir . "/public")) {
+            mkdir("public");
+        }
+        if (!file_exists($dir . "/public/pages")) {
+            mkdir("public/pages");
+        }
+        if (!file_exists($dir . "/public/assets/")) {
+            mkdir("public/assets");
+        }
+        if (!file_exists($dir . "/public/assets/css")) {
+            mkdir("public/assets/css");
+        }
+        if (!file_exists($dir . "/public/assets/script")) {
+            mkdir("public/assets/script");
+        }
     }
 }
