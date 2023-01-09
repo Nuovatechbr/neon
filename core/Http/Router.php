@@ -9,6 +9,7 @@ use \Nuovatech\Neon\Neon;
 use \Nuovatech\Neon\Http\Response;
 use \Nuovatech\Neon\Http\Request;
 use \Neon\Core\Http\Middleware\Queue;
+use Nuovatech\Neon\Tools;
 use \Nuovatech\Neon\View;
 use Reflection;
 
@@ -193,8 +194,7 @@ class Router
             }
         }
         // URL não encontrada
-        View::http(404);
-        throw new Exception('', 404);
+        throw new Exception("File or Route don't be founded!", 404);
     }
 
     /**

@@ -116,6 +116,7 @@ abstract class View
      */
     static public function render(string $view, array $vars = [], string $type = null)
     {
+        echo "asd";
 
         // Verifica a extensão do arquivo que será carregado, o padrão é .php
         $extension = ($type == null) ? ".php" : '.' . $type;
@@ -129,8 +130,8 @@ abstract class View
         unset($vars);
 
         if (!file_exists($file)) {
-
-            echo Tools::dump($file, true);
+            
+            // Tools::dump($file, true); 
             // header('Content-Type: application/json');
            
             // echo json_encode([

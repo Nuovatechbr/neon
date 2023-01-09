@@ -68,6 +68,7 @@ abstract class Neon
         }
 
         if ($qtdRoutes > 0) {
+
             // Executa a chamada da rotas
             $obRouter->run()->sendResponse();
 
