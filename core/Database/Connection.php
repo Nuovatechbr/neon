@@ -13,11 +13,6 @@ use \Nuovatech\Neon\Neon;
  */
 abstract class Connection
 {
-    public static $host = "sql290.main-hosting.eu";
-    public static $dbName = "u469252486_meyors";
-    public static $username = "u469252486_meyors";
-    public static $password = "M3yorsD4t4b@s3";
-
     private static function connect()
     {
         try {
