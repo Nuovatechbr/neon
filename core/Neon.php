@@ -2,6 +2,7 @@
 
 namespace Nuovatech\Neon;
 
+use Nuovatech\Neon\Config\Application;
 use \Nuovatech\Neon\Http\Router;
 
 /**
@@ -12,6 +13,8 @@ use \Nuovatech\Neon\Http\Router;
  */
 abstract class Neon
 {
+
+    public static $app;
 
     /**
      * Método responsável por carregar as variáveis de ambiente do projeto
@@ -46,7 +49,7 @@ abstract class Neon
         ob_start();
 
         // Variável que chamará as rotas do projeto
-        $obRouter = new Router(URL);
+        $obRouter = new Router(self::$app->url);
 
         // Diretório dos arquivos de rotas
         $directory = dir($dir .  "/app/Routes/");
@@ -95,6 +98,9 @@ abstract class Neon
         // Cria os diretórios do sistema, caso não existam
         self::diretories($dir);
 
+        // Cria a configuração da aplicação
+        self::settings($dir);
+
         // Inicia a variável de sessão para utilização futura
         if (session_start() != PHP_SESSION_ACTIVE) {
             session_start();
@@ -115,6 +121,7 @@ abstract class Neon
         if (!file_exists($dir . "/app")) {
             mkdir("app");
         }
+
         if (!file_exists($dir . "/app/Controller")) {
             mkdir("app/Controller");
         }
@@ -144,5 +151,29 @@ abstract class Neon
         if (!file_exists($dir . "/public/assets/script")) {
             mkdir("public/assets/script");
         }
+    }
+
+    /**
+     * Cria o arquivo de configuração da aplicação
+     */
+    private static function settings($dir)
+    {
+        // Carrega o caminho do arquivo
+        $jsonFile = $dir . "/app/application.json";
+
+        // Verifica se o arquivo de configuração já existe.
+        if (!file_exists($jsonFile)) {
+
+            // Cria um arquivo json
+            $file = fopen($jsonFile, 'w');
+
+            // Verifica a possibilidade de criar o arquivo
+            if ($file == false) die('Não foi possível criar o arquivo.');
+
+            // Inicializa a variável de aplicação
+            self::$app = new Application();
+            fwrite($file, json_encode(self::$app));
+        }
+        self::$app = new Application(file_get_contents($jsonFile));
     }
 }

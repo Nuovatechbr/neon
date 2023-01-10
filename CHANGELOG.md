@@ -1,3 +1,8 @@
+## [0.1.0.20230110]
+
+### Changed
+
+- [core/Neon] : Adicionados métodos de construção do arquivo de configuração da aplicação. 
 
 ## [0.0.2.20230108]
 
