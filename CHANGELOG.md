@@ -1,3 +1,11 @@
+## [0.1.1.20230110]
+
+### Changed
+
+- [core/Config/Application.php] : Criado novos métodos para criação de parâmetros de configuração.
+- [core/Database/Connection.php] : Alterados parâmetros de configuração do servidor.
+- [core/Neon.php] : Alterado carregamento das configurações no gerenciador.
+
 ## [0.1.0.20230110]
 
 ### Changed

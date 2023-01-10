@@ -2,6 +2,7 @@
 
 namespace Nuovatech\Neon\Config;
 
+use Nuovatech\Neon\Tools;
 use stdClass;
 
 /**
@@ -10,17 +11,32 @@ use stdClass;
 class Application
 {
 
-    public function __construct()
+    public function __construct($params = null)
     {
-        $this->url();
-        $this->dataBase();
+        if ($params) {
+
+            foreach ($params as $key => $value) {
+
+                if (!is_array($value)) {
+                    $this->$key = $value;
+                } else {
+                    $this->$key = new stdClass();
+                    foreach ($value as $subKey => $subValue) {
+                        $this->$key->$subKey = $subValue;
+                    }
+                }
+            }
+        } else {
+            $this->url();
+            $this->dataBase();
+        }
     }
 
     /**
      * Contém as informações de banco de dados da aplicação
      * @var stdClass
      */
-    public $dataBase;
+    public $database;
 
     /**
      * Armazena a URL Base do sistema
@@ -38,11 +54,14 @@ class Application
      */
     private function database()
     {
-        $this->dataBase = new stdClass();
-        $this->dataBase->driver = '';
-        $this->dataBase->name = '';
-        $this->dataBase->password = '';
-        $this->dataBase->user = '';
+        $this->database = new stdClass();
+        $this->database->charset = '';
+        $this->database->driver = '';
+        $this->database->host = '';
+        $this->database->name = '';
+        $this->database->password = '';
+        $this->database->port = '';
+        $this->database->user = '';
     }
 
     /**

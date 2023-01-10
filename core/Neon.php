@@ -174,6 +174,8 @@ abstract class Neon
             self::$app = new Application();
             fwrite($file, json_encode(self::$app));
         }
-        self::$app = new Application(file_get_contents($jsonFile));
+
+        $app = file_get_contents($jsonFile);
+        self::$app = new Application(json_decode($app, true));
     }
 }

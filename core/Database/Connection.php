@@ -4,6 +4,7 @@ namespace Nuovatech\Neon\Database;
 
 use PDO;
 use PDOException;
+use \Nuovatech\Neon\Neon;
 
 /**
  * @desc: classe de persistência ao banco de dados
@@ -20,8 +21,11 @@ abstract class Connection
     private static function connect()
     {
         try {
-
-            $pdo = new PDO("mysql:host=" . self::$host . ";dbname=" . self::$dbName, self::$username, self::$password);
+            $pdo = new PDO(
+                Neon::$app->database->driver . ":host=" . Neon::$app->database->host . ";port=" . Neon::$app->database->port . "dbname=" . Neon::$app->database->name,
+                Neon::$app->database->user,
+                Neon::$app->database->password
+            );
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             return $pdo;
         } catch (\PDOException $e) {
