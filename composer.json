@@ -11,7 +11,8 @@
     "license": "GPL-3.0-or-later",
     "autoload": {
         "psr-4": {
-            "Nuovatech\\Neon\\": "core/"
+            "Nuovatech\\Neon\\": "core/",
+            "Nuovatech\\N\\": "app/"
         }
     },
     "require": {

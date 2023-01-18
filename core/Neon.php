@@ -101,6 +101,9 @@ abstract class Neon
         // Cria a configuração da aplicação
         self::settings($dir);
 
+        // Define a timezone de acordo com o valor da configuracao
+        self::timezone(self::$app->timezone);
+
         // Inicia a variável de sessão para utilização futura
         if (session_start() != PHP_SESSION_ACTIVE) {
             session_start();
@@ -177,5 +180,15 @@ abstract class Neon
 
         $app = file_get_contents($jsonFile);
         self::$app = new Application(json_decode($app, true));
+    }
+
+    /**
+     * Método responsável por carregar o timezone para aplicação
+     * @param   string  $place local da zona
+     */
+    public static function timezone(string $place)
+    {
+        $place = (empty($place)) ? "America/Bahia" : $place;
+        date_default_timezone_set($place);
     }
 }

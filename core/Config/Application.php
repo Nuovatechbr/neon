@@ -2,15 +2,19 @@
 
 namespace Nuovatech\Neon\Config;
 
-use Nuovatech\Neon\Tools;
 use stdClass;
 
 /**
- * Classe de configuração da aplicação
+ * Model class to settings the application. It's autoloaded when the Neon is started.
+ * It create a jsonfile contain the basical settings.
+ * @author Eduardo Marinho
  */
 class Application
 {
 
+    /**
+     * Auto construct the class.
+     */
     public function __construct($params = null)
     {
         if ($params) {
@@ -39,6 +43,12 @@ class Application
     public $database;
 
     /**
+     * Armazena o valor de timezone para a aplicação
+     * @var string
+     */
+    public $timezone = '';
+
+    /**
      * Armazena a URL Base do sistema
      * @var string
      */
@@ -50,7 +60,7 @@ class Application
     public $charset = "utf-8";
 
     /**
-     * Cria as configurações para conexão com banco de dados
+     * Create an object with properties to define a database specifies.
      */
     private function database()
     {
@@ -65,7 +75,7 @@ class Application
     }
 
     /**
-     * Cria a URL base da aplicação
+     * Get the true directory of application.
      */
     private function url()
     {

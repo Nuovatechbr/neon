@@ -82,8 +82,8 @@ class Response
                     exit;
                 }
             case "application/json": {
-                    $content  = mb_convert_encoding($this->content, "UTF-8");
-                    echo json_encode($content);
+                    // $content  = mb_convert_encoding($this->content, "UTF-8");
+                    echo json_encode($this->content);
                     exit;
                 }
         }
