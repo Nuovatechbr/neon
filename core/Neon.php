@@ -17,27 +17,6 @@ abstract class Neon
     public static $app;
 
     /**
-     * Método responsável por carregar as variáveis de ambiente do projeto
-     * @param  string $dir Caminho absoluto da pasta onde encontra-se o arquivo .env
-     * @author WilliamCosta
-     * @see https://www.youtube.com/c/WDEVoficial/featured
-     */
-    public static function environment(string $dir)
-    {
-        //VERIFICA SE O ARQUIVO .ENV EXISTE
-        if (!file_exists($dir . '/.env')) {
-            return false;
-        }
-
-        //DEFINE AS VARIÁVEIS DE AMBIENTE
-        $lines = file($dir . '/.env');
-        foreach ($lines as $line) {
-            $constant = explode('=', $line);
-            define(trim($constant[0]), trim($constant[1]));
-        }
-    }
-
-    /**
      * Método responsável por iniciar as rotas para o projeto.
      * A definição das URL precisam já terrem sido carregadas antes da chamada deste método.
      * @param   string $dir diretório padrão do projeto
@@ -92,9 +71,6 @@ abstract class Neon
      */
     public static function start(string $dir = __DIR__)
     {
-        // Carrega as variáveis de ambiente
-        self::environment($dir);
-
         // Cria os diretórios do sistema, caso não existam
         self::diretories($dir);
 

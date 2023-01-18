@@ -1,6 +1,6 @@
 <?php
 
-namespace Nuovatech\Neon;
+namespace Nuovatech\Neon\Http;
 
 use stdClass;
 

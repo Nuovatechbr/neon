@@ -31,8 +31,9 @@ class Application
                 }
             }
         } else {
-            $this->url();
             $this->dataBase();
+            $this->url();
+            $this->sessionKey();
         }
     }
 
@@ -41,6 +42,12 @@ class Application
      * @var stdClass
      */
     public $database;
+
+    /**
+     * Stored a sessionkey to application
+     * @var string
+     */
+    public $sessionKey;
 
     /**
      * Armazena o valor de timezone para a aplicação
@@ -82,5 +89,13 @@ class Application
         $path = explode('\\', getcwd());
         $pathSize = count($path);
         $this->url = $path[$pathSize - 1];
+    }
+
+    /**
+     * Define the session key. If it don't defined 'll used the name of directory application.
+     */
+    private function sessionKey()
+    {
+        $this->sessionKey = $this->url;
     }
 }

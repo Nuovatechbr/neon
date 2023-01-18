@@ -4,6 +4,8 @@ namespace Nuovatech\Neon;
 
 use Directory;
 use Exception;
+use \Nuovatech\Neon\Http\Exception as HttpException;
+use stdClass;
 
 /**
  * Classe de gestão dos recursos das views da aplicação.
@@ -106,59 +108,6 @@ abstract class View
     static public function include(string $path, string $ext = "php")
     {
         require_once("public/pages/" . $path . '.' . $ext);
-    }
-
-    /**
-     * Método   responsável por realizar  a renderização da (view)  desejada.
-     * @param   string  $view   caminho do arquivo
-     * @param   string  $type   formato do arquivo (html, php) 
-     * @param   array   $vars   variáveis que serão passadas para a view
-     */
-    static public function render(string $view, array $vars = [], string $type = null)
-    {
-        echo "asd";
-
-        // Verifica a extensão do arquivo que será carregado, o padrão é .php
-        $extension = ($type == null) ? ".php" : '.' . $type;
-
-        // Obtem o caminho do arquivo
-        $file = "public/pages/" . $view . $extension;
-
-        // Acesso a variáveis globais
-        self::$global = $vars;
-
-        unset($vars);
-
-        if (!file_exists($file)) {
-            
-            // Tools::dump($file, true); 
-            // header('Content-Type: application/json');
-           
-            // echo json_encode([
-            //     "status" => 500,
-            //     "description" => "Sem rota"
-            // ]);
-            // exit;
-            // throw new Exception("Sem rota definida", 1);
-        }
-
-        // Carrega o arquivo 
-        $content = file_exists($file) ? file_get_contents($file) : '';
-
-
-        if (empty($content)) {
-            // $path =  $_SERVER['REQUEST_SCHEME'] . "://" . $_SERVER['SERVER_NAME'] . "/neon/public/pages/status/error-view.php";
-            // $content = file_get_contents($path);
-            $content = file_get_contents("public/pages/http/status.php");
-            self::$global = [
-                "msg" => "Página não encontrada",
-                "site" => "Neon:: 404 - Página não encontrada.",
-                "status" => 404,
-            ];
-        }
-
-        // Realiza a renderização da visão
-        eval("?> $content <?php ");
     }
 
     /**
@@ -311,6 +260,50 @@ abstract class View
             return $_SERVER['REQUEST_SCHEME'] . "://" .  $_SERVER['SERVER_NAME'] . implode('/', $urix) . '/' . $caminho;
         }
         echo  $_SERVER['REQUEST_SCHEME'] . "://" .  $_SERVER['SERVER_NAME'] . implode('/', $urix) . '/' . $caminho;
+    }
+
+    /**
+     * Renderiza o conteúdo para a página
+     * @param string $content
+     * @return string
+     */
+    public static function content(string $content = '')
+    {
+        return $content;
+    }
+
+    /**
+     * Método   responsável por realizar  a renderização da (view)  desejada.
+     * @param   string  $view   caminho do arquivo
+     * @param   string  $type   formato do arquivo (html, php) 
+     * @param   array   $vars   variáveis que serão passadas para a view
+     */
+    static public function render(string $view, array $vars = [], string $type = null)
+    {
+        // Verifica a extensão do arquivo que será carregado, o padrão é .php
+        $extension = ($type == null) ? ".php" : '.' . $type;
+
+        // Obtem o caminho do arquivo
+        $file = "public/pages/" . $view . $extension;
+
+        // Verifica a existência do arquivo
+        if (!file_exists($file)) {
+            HttpException::response(404);
+        }
+
+        // Acesso a variáveis globais
+        self::$global = new stdClass();
+        foreach ($vars as $param => $value) {
+            self::$global->$param = $value;
+        }
+
+        unset($vars);
+
+        // Carrega o arquivo 
+        $content = file_get_contents($file);
+
+        // Realiza a renderização da visão
+        eval("?> $content <?php ");
     }
 
     static private function getUri()

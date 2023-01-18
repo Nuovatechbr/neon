@@ -12,7 +12,7 @@
     "autoload": {
         "psr-4": {
             "Nuovatech\\Neon\\": "core/",
-            "Nuovatech\\N\\": "app/"
+            "Nuovatech\\Neon\\Sample\\": "app/"
         }
     },
     "require": {
