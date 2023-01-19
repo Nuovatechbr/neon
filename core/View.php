@@ -110,46 +110,46 @@ abstract class View
         require_once("public/pages/" . $path . '.' . $ext);
     }
 
-    /**
-     * Método responsável por realizar  a renderização da (view) em um template desejado.
-     * @param string $path caminho do arquivo
-     * @param string $type formato do arquivo (html, php)
-     * @param array $vars variáveis com parâmetros
-     */
-    static public function template(string $path, array $vars = [], string $type = null)
-    {
+    // /**
+    //  * Método responsável por realizar  a renderização da (view) em um template desejado.
+    //  * @param string $path caminho do arquivo
+    //  * @param string $type formato do arquivo (html, php)
+    //  * @param array $vars variáveis com parâmetros
+    //  */
+    // static public function template(string $path, array $vars = [], string $type = null)
+    // {
 
-        // Verifica a extenssão do arquivo que será carregado, o padrão é .php        
-        $extension = ($type == null) ? ".php" : '.' . $type;
-        $view = "public/pages/" . $path . $extension;
+    //     // Verifica a extenssão do arquivo que será carregado, o padrão é .php        
+    //     $extension = ($type == null) ? ".php" : '.' . $type;
+    //     $view = "public/pages/" . $path . $extension;
 
-        // Carrega o layout
-        $layout = "public/template/layout.php";
+    //     // Carrega o layout
+    //     $layout = "public/template/layout.php";
 
-        // Atribui os parâmetros para a variável global
-        self::$global = $vars;
+    //     // Atribui os parâmetros para a variável global
+    //     self::$global = $vars;
 
-        // limpa a variável
-        unset($vars);
+    //     // limpa a variável
+    //     unset($vars);
 
-        // Atribui a carga do conteúdo à variável global
-        self::$body  = file_exists($view) ? file_get_contents($view) : '';
+    //     // Atribui a carga do conteúdo à variável global
+    //     self::$body  = file_exists($view) ? file_get_contents($view) : '';
 
-        // Verica se o conteúdo está vazio, caso esteja carrega a página de erro.
-        if (empty(self::$body)) {
-            self::$body = file_get_contents("public/pages/status/error-view.php");
-            self::$global = [
-                "msg" => "Página não encontrada",
-                "site" => "Neon:: 404 - Página não encontrada.",
-                "status" => 404,
-            ];
-        }
+    //     // Verica se o conteúdo está vazio, caso esteja carrega a página de erro.
+    //     if (empty(self::$body)) {
+    //         self::$body = file_get_contents("public/pages/status/error-view.php");
+    //         self::$global = [
+    //             "msg" => "Página não encontrada",
+    //             "site" => "Neon:: 404 - Página não encontrada.",
+    //             "status" => 404,
+    //         ];
+    //     }
 
-        ob_start();
-        eval("?>" . self::$body  . "<?php");
-        self::$body  = ob_get_clean();
-        require $layout;
-    }
+    //     ob_start();
+    //     eval("?>" . self::$body  . "<?php");
+    //     self::$body  = ob_get_clean();
+    //     require $layout;
+    // }
 
     static public function renderJson(string $view, string $type = null, $vars)
     {

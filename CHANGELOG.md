@@ -1,3 +1,10 @@
+## [0.1.4.20220120]
+
+### Changed
+
+- [core/View.php] : Removido método Template.
+
+
 ## [0.1.4.20220119]
 
 ### Changed
