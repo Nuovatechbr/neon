@@ -1,3 +1,10 @@
+## [0.1.4.20220119]
+
+### Changed
+
+- [core/Http/Exception.php] : Adicinados novos códigos de status.
+- [core/Http/Router.php] : Alterado retornos.
+
 ## [0.1.3.20220118]
 
 ### Changed

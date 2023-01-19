@@ -5,12 +5,11 @@ namespace Nuovatech\Neon\Http;
 use \Exception;
 use \Closure;
 use \ReflectionFunction;
-use \Nuovatech\Neon\Neon;
 use \Nuovatech\Neon\Http\Response;
 use \Nuovatech\Neon\Http\Request;
 use \Neon\Core\Http\Middleware\Queue;
-use Nuovatech\Neon\Tools;
 use \Nuovatech\Neon\View;
+use \Nuovatech\Neon\Http\Exception as HttpException;
 use Reflection;
 
 class Router
@@ -189,12 +188,11 @@ class Router
                     // Retorno dos parâmetros da rota
                     return $methods[$httpMethod];
                 }
-                View::http(405);
-                throw new Exception("Método não permitido", 405);
+                HttpException::response(405);
             }
         }
         // URL não encontrada
-        throw new Exception("File or Route don't be founded!", 404);
+        HttpException::response(400, "Route not found!");
     }
 
     /**

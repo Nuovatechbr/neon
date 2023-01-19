@@ -26,10 +26,22 @@ abstract class Exception
                         "message" => (empty($msg)) ? "Success" : $msg
                     ]));
                 }
+            case 400: {
+                    exit(json_encode([
+                        "code" => $code,
+                        "message" => (empty($msg)) ? "Bad Request" : $msg
+                    ]));
+                }
             case 404: {
                     exit(json_encode([
                         "code" => $code,
                         "message" => (empty($msg)) ? "Not Found" : $msg
+                    ]));
+                }
+            case 405: {
+                    exit(json_encode([
+                        "code" => $code,
+                        "message" => (empty($msg)) ? "Method Not Allowed" : $msg
                     ]));
                 }
             default: {
