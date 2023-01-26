@@ -3,6 +3,7 @@
 namespace Nuovatech\Neon;
 
 use Nuovatech\Neon\Config\Application;
+use Nuovatech\Neon\Http\Exception;
 use \Nuovatech\Neon\Http\Router;
 
 /**
@@ -52,7 +53,12 @@ abstract class Neon
         if ($qtdRoutes > 0) {
 
             // Executa a chamada da rotas
-            $obRouter->run()->sendResponse();
+            try {
+                // Executa a chamada da rotas
+                $obRouter->run()->sendResponse();
+            } catch (\Throwable $th) {
+                Exception::response((int) $th->getCode(), $th->getMessage());
+            }
 
             // Limpa o conteúdo do BUFFER para evitar erros
             ob_end_flush();

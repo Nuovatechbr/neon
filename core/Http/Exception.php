@@ -26,10 +26,34 @@ abstract class Exception
                         "message" => (empty($msg)) ? "Success" : $msg
                     ]));
                 }
+            case 201: {
+                    exit(json_encode([
+                        "code" => $code,
+                        "message" => (empty($msg)) ? "Created" : $msg
+                    ]));
+                }
+            case 202: {
+                    exit(json_encode([
+                        "code" => $code,
+                        "message" => (empty($msg)) ? "Accepted" : $msg
+                    ]));
+                }
             case 400: {
                     exit(json_encode([
                         "code" => $code,
                         "message" => (empty($msg)) ? "Bad Request" : $msg
+                    ]));
+                }
+            case 401: {
+                    exit(json_encode([
+                        "code" => $code,
+                        "message" => (empty($msg)) ? "Unauthorized" : $msg
+                    ]));
+                }
+            case 403: {
+                    exit(json_encode([
+                        "code" => $code,
+                        "message" => (empty($msg)) ? "Forbidden" : $msg
                     ]));
                 }
             case 404: {
@@ -44,9 +68,15 @@ abstract class Exception
                         "message" => (empty($msg)) ? "Method Not Allowed" : $msg
                     ]));
                 }
-            default: {
+            case 500: {
                     exit(json_encode([
                         "code" => 500,
+                        "message" => (empty($msg)) ? "Internal Server Error" : $msg
+                    ]));
+                }
+            default: {
+                    exit(json_encode([
+                        "code" => $code,
                         "message" => (empty($msg)) ? "Internal Server Error" : $msg
                     ]));
                 }

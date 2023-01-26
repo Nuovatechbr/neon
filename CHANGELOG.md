@@ -1,18 +1,25 @@
-## [0.1.4.20220120]
+## [0.1.5.20230126]
+
+### Changed
+- [core/Http/Exception.php] : Amplicada lista de status [201, 202, 401, 403, 500];
+- [core/Neon.php] : Tratamento aplicado no método Route() para lançar exceção do próprio framework;
+- [core/View.php] : Removido método Template(), ficando à cargo do template realizar a implmentação do método.
+
+## [0.1.4.20230120]
 
 ### Changed
 
 - [core/View.php] : Removido método Template.
 
 
-## [0.1.4.20220119]
+## [0.1.4.20230119]
 
 ### Changed
 
 - [core/Http/Exception.php] : Adicinados novos códigos de status.
 - [core/Http/Router.php] : Alterado retornos.
 
-## [0.1.3.20220118]
+## [0.1.3.20230118]
 
 ### Changed
 
