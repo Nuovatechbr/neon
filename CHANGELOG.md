@@ -1,3 +1,11 @@
+## [0.1.6.20230130]
+
+### Changed
+- [core/View.php] : 
+    - Método css() alterado para carregar arquivo direto do projeto.
+    - Método script() alterado para carregar arquivo direto do projeto.
+    - Método renderJson() removido.
+
 ## [0.1.5.20230126]
 
 ### Changed
