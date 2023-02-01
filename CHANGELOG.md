@@ -1,3 +1,11 @@
+## [0.1.7.20230201]
+
+### Changed
+
+- [core/Tools.php] : Removida importação da classe Response não utilizada.
+- [core/View.php] : 
+    -  Atualizado método getGlobal(), adicionada crítica caso a chave não tenha sido definida pelo desenvolvedor evitando warning.
+    -  Atualizado método css(), alterada forma de carregamento do arquivo css.
 ## [0.1.6.20230130]
 
 ### Changed

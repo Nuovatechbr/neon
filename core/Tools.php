@@ -2,8 +2,6 @@
 
 namespace Nuovatech\Neon;
 
-use Nuovatech\Neon\Http\Response;
-
 /**
  * Classe de apoio à desenvolvimento, possuí métodos para depuração ou testes
  */

@@ -40,13 +40,12 @@ abstract class View
      * Método responsável por devolver como string o valor guardado na variável global da visão
      * @param   string $key chave do array.
      */
-    protected static function getGlobal(string $key, bool $print = false)
+    protected static function getGlobal(string $key)
     {
-        if ($print == true) {
+        if (isset(self::$global[$key])) {
             return self::$global[$key];
-        } else {
-            echo self::$global[$key];
         }
+        return '';
     }
 
     protected static function setBody(mixed $body)
@@ -71,7 +70,7 @@ abstract class View
      */
     public static function css(string $path)
     {
-        $path = $_SERVER['REQUEST_SCHEME'] . "://" .  $_SERVER['SERVER_NAME'] .  $_SERVER["REQUEST_URI"] . "public/assets/script/$name.css";
+        $path = self::directory() . "public/assets/css/$path.css";
         print_r("<link href='$path' rel='stylesheet' type='text/css'> \r");
     }
 
@@ -93,7 +92,6 @@ abstract class View
     public static function favicon(string $url, $type = null)
     {
         $type = (!empty($type)) ? $type : ".ico";
-        echo '<link href="' . self::getUri() . 'public/assets/imgs/' . $url . '.' . $type . '" rel="icon" type="img/' . $type . '">';
     }
 
     /**
@@ -107,7 +105,7 @@ abstract class View
     /**
      * Load the module js
      * @param string $path Path or URL the module script file.
-     * @see Load .mjs files
+     * @see Load .js files
      */
     public static function module(string $path)
     {
@@ -159,7 +157,22 @@ abstract class View
         print_r("<script src='$path'></script> \r");
     }
 
-    static private function getUri()
+    /**
+     * Load the title site name
+     */
+    public static function title()
+    {
+        if (!empty(self::getGlobal("site"))) {
+            print_r(self::getGlobal("site"));
+        }
+        print_r("Teste");
+    }
+
+    /**
+     * Get the return of application directory
+     * @return string directory
+     */
+    private static function directory()
     {
         // Obtem o endereço da raíz do index
         $urix = explode('/', $_SERVER['PHP_SELF']);
@@ -170,4 +183,15 @@ abstract class View
         // Remonta o caminho utilizando a URL editada
         return  $_SERVER['REQUEST_SCHEME'] . "://" .  $_SERVER['SERVER_NAME'] . implode('/', $urix) . '/';
     }
+
+    // private static function directory()
+    // {
+    //     $serverPath = $_SERVER['REQUEST_SCHEME'] . "://" .  $_SERVER['SERVER_NAME'];
+    //     $appPath = explode('/', $_SERVER['PHP_SELF']);
+    //     $subPathSize = count($appPath);
+    //     if ($subPathSize > 1) {
+    //         unset($appPath[$subPathSize - 1]);
+    //     }
+    //     return $serverPath . implode('/', $appPath) . '/';
+    // }
 }

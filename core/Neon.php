@@ -2,8 +2,8 @@
 
 namespace Nuovatech\Neon;
 
-use Nuovatech\Neon\Config\Application;
-use Nuovatech\Neon\Http\Exception;
+use \Nuovatech\Neon\Config\Application;
+use \Nuovatech\Neon\Http\Exception;
 use \Nuovatech\Neon\Http\Router;
 
 /**
