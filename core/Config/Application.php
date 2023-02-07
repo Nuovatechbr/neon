@@ -44,6 +44,12 @@ class Application
     public $database;
 
     /**
+     * Contém o nome da aplicação
+     * @var string
+     */
+    public $name = 'Neon';
+
+    /**
      * Stored a sessionkey to application
      * @var string
      */

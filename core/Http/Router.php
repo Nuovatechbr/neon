@@ -7,10 +7,8 @@ use \Closure;
 use \ReflectionFunction;
 use \Nuovatech\Neon\Http\Response;
 use \Nuovatech\Neon\Http\Request;
-use \Neon\Core\Http\Middleware\Queue;
-use \Nuovatech\Neon\View;
 use \Nuovatech\Neon\Http\Exception as HttpException;
-use Reflection;
+use \Reflection;
 
 class Router
 {

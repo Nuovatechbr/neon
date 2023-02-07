@@ -109,7 +109,7 @@ abstract class View
      */
     public static function module(string $path)
     {
-        $path = $_SERVER['REQUEST_SCHEME'] . "://" .  $_SERVER['SERVER_NAME'] .  $_SERVER["REQUEST_URI"] . "public/assets/script/$path.mjs";
+        $path = $_SERVER['REQUEST_SCHEME'] . "://" .  $_SERVER['SERVER_NAME'] .  $_SERVER["REQUEST_URI"] . "public/assets/script/$path.js";
         print_r("<script src='$path' type='module'></script> \r");
     }
 
@@ -162,10 +162,7 @@ abstract class View
      */
     public static function title()
     {
-        if (!empty(self::getGlobal("site"))) {
-            print_r(self::getGlobal("site"));
-        }
-        print_r("Teste");
+        print_r(!empty(self::getGlobal("site")) ?self::getGlobal("site") : Neon::$app->name);
     }
 
     /**

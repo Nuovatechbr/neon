@@ -1,3 +1,12 @@
+## [0.1.8.20230207]
+
+### Changed
+
+- [core/Config/Application.php] : Adicionado parâmetro name para armazenar o nome do aplicativo.
+- [core/Http/Router.php] : Removida importação do QUEE class, não utilizada.
+- [core/Neon.php] : Adicionado método directory().
+- [core/View.php] : Alterada extensão de importação do arquivo módulo js.
+
 ## [0.1.7.20230201]
 
 ### Changed

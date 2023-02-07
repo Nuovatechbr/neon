@@ -173,4 +173,21 @@ abstract class Neon
         $place = (empty($place)) ? "America/Bahia" : $place;
         date_default_timezone_set($place);
     }
+
+
+    /**
+     * Get the return of application directory
+     * @return string directory
+     */
+    public static function directory()
+    {
+        // Obtem o endereço da raíz do index
+        $urix = explode('/', $_SERVER['PHP_SELF']);
+
+        // Remove o index.php do array
+        unset($urix[count($urix) - 1]);
+
+        // Remonta o caminho utilizando a URL editada
+        return  $_SERVER['REQUEST_SCHEME'] . "://" .  $_SERVER['SERVER_NAME'] . implode('/', $urix) . '/';
+    }
 }
